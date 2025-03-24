@@ -1,0 +1,48 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "ui:dev",
+        "type": "shell",
+        // `dev` keeps running in the background
+        // ideally you should also configure a `problemMatcher`
+        // see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
+        "isBackground": true,
+        "command": "npm",
+        "args": ["run", "dev"],
+        "problemMatcher": {
+          "owner": "custom",
+          "pattern": {
+            "regexp": "^$"
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": "➜\\s+press h \\+ enter to show help"
+          }
+        }
+      },
+      {
+        "label": "ui:build",
+        "type": "shell",
+        "command": "npm",
+        "args": ["run", "build"]
+      },
+      {
+        "label": "terminate-ui-dev",
+        "type": "shell",
+        "command": "echo ${input:terminateUiDev}",
+        "problemMatcher": []
+      }
+    ],
+    "inputs": [
+      {
+        "id": "terminateUiDev",
+        "type": "command",
+        "command": "workbench.action.tasks.terminate",
+        "args": "ui:dev"
+      }
+    ]
+  }
